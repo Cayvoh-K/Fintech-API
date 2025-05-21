@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fintech-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fintech-api
+  template:
+    metadata:
+      labels:
+        app: fintech-api
+    spec:
+      containers:
+        - name: fintech-api
+          image: your-dockerhub-username/fintech-api:latest
+          ports:
+            - containerPort: 3000
