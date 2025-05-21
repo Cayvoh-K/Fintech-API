@@ -10,7 +10,7 @@ const transactions = [
 
 // Transactions endpoint
 app.get('/transactions', (req, res) => {
-  res.json(transactions);
+  res.json({ message: '✅ Transaction processed successfully!' });
 });
 
 // Expense endpoint
