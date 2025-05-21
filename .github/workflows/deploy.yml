@@ -1,11 +1,11 @@
-name: CI & Deploy to Minikube
+name: CI Only
 
 on:
   push:
     branches: [main]
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,19 +33,4 @@ jobs:
       run: |
         docker build -t ${{ secrets.DOCKER_USERNAME }}/fintech-api:latest .
         docker push ${{ secrets.DOCKER_USERNAME }}/fintech-api:latest
-
-    - name: Set up kubectl
-      uses: azure/setup-kubectl@v3
-      with:
-        version: 'latest'
-
-    - name: Configure kubeconfig
-      run: |
-        mkdir -p $HOME/.kube
-        echo "${{ secrets.KUBECONFIG_BASE64 }}" | base64 -d > $HOME/.kube/config
-
-    - name: Deploy to Kubernetes
-      run: |
-        kubectl apply -f k8s/api-deployment.yaml
-        kubectl apply -f k8s/api-service.yaml
 
