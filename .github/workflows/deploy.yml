@@ -39,7 +39,6 @@ jobs:
 
     - name: Archive logs to S3
       run: |
-        cd infra/logs  # or wherever your logs.tf is
         terraform init
         terraform apply -auto-approve
       env:
