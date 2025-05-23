@@ -37,11 +37,9 @@ jobs:
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v3
 
-    - name: Debug: List repo root files
-      run: ls -la
-
     - name: Archive logs to S3
       run: |
+        cd logs
         terraform init
         terraform apply -auto-approve
       env:
