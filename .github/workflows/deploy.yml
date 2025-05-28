@@ -37,10 +37,20 @@ jobs:
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v3
 
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Apply - API Infra (if separate)
+      run: terraform apply -auto-approve
+      # Add -target if you want to apply only specific parts
+
+    - name: Terraform Apply - Monitoring Stack
+      run: terraform apply -auto-approve
+      # Assumes monitoring.tf is in same dir and included in main terraform state
+
     - name: Archive logs to S3
       run: |
-        terraform init
-        terraform apply -auto-approve
+        echo "Add your S3 upload commands here"
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
