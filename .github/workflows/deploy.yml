@@ -39,18 +39,21 @@ jobs:
 
     - name: Terraform Init
       run: terraform init
-
-    - name: Terraform Apply - API Infra (if separate)
-      run: terraform apply -auto-approve
-      # Add -target if you want to apply only specific parts
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: us-east-1
 
     - name: Terraform Apply - Monitoring Stack
       run: terraform apply -auto-approve
-      # Assumes monitoring.tf is in same dir and included in main terraform state
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: us-east-1
 
-    - name: Archive logs to S3
+    - name: Archive logs to S3 (optional placeholder)
       run: |
-        echo "Add your S3 upload commands here"
+        echo "Add your S3 upload script here if needed"
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
